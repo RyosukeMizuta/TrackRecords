@@ -10,7 +10,7 @@ CSV_URL = "https://raw.githubusercontent.com/RyosukeMizuta/TrackRecords/main/Tra
 def load_data():
     return pd.read_csv(CSV_URL)
 
-df = load_data(encoding="shift-jis")
+df = load_data()
 
 st.sidebar.header("検索条件")
 
@@ -64,3 +64,4 @@ if not filtered_df.empty:
     st.write(f"最高記録: {records.max():.2f}")
 
     st.write(f"最低記録: {records.min():.2f}")
+
