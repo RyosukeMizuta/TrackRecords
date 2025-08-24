@@ -15,7 +15,7 @@ try:
 except Exception as e:
     st.error(f"CSVファイルの読み込みに失敗しました: {e}")
 
-st.sidebar.header("検索条件")
+st.header("検索条件")
 
 name_options = [""] + sorted(df["氏名"].dropna().unique().tolist())
 grade_options = [""] + sorted(df["学年"].dropna().unique().tolist())
@@ -26,14 +26,14 @@ venue_options = [""] + sorted(df["会場"].dropna().unique().tolist())
 meet_options = [""] + sorted(df["大会名"].dropna().unique().tolist())
 wind_options = [""] + sorted(df["風速"].dropna().unique().tolist())
 
-name = st.sidebar.selectbox("氏名", name_options)
-grade = st.sidebar.selectbox("学年", grade_options)
-gender = st.sidebar.selectbox("性別", gender_options)
-date = st.sidebar.selectbox("日時", date_options)
-event = st.sidebar.selectbox("種目", event_options)
-venue = st.sidebar.selectbox("会場", venue_options)
-meet = st.sidebar.selectbox("大会名", meet_options)
-wind = st.sidebar.selectbox("風速", wind_options)
+name = st.selectbox("氏名", name_options)
+grade = st.selectbox("学年", grade_options)
+gender = st.selectbox("性別", gender_options)
+date = st.selectbox("日時", date_options)
+event = st.selectbox("種目", event_options)
+venue = st.selectbox("会場", venue_options)
+meet = st.selectbox("大会名", meet_options)
+wind = st.selectbox("風速", wind_options)
 
 filtered_df = df.copy()
 if name:
@@ -63,5 +63,6 @@ if not filtered_df.empty:
     st.write(f"最低記録: {records.max():.2f}")
 
     st.write(f"最髙記録: {records.min():.2f}")
+
 
 
