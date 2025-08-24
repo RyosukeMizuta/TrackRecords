@@ -4,7 +4,7 @@ import pandas as pd
 st.title("中学校陸上記録データベース")
 
 # GitHub上のCSVファイルを読み込む
-CSV_URL = "https://raw.githubusercontent.com/RyosukeMizuta/TrackRecords/main/TrackRecords.csv"
+CSV_URL = "https://raw.githubusercontent.com/RyosukeMizuta/TrackRecords/refs/heads/main/TrackRecords.csv"
 
 @st.cache_data
 def load_data():
@@ -64,4 +64,5 @@ if not filtered_df.empty:
     st.write(f"最高記録: {records.max():.2f}")
 
     st.write(f"最低記録: {records.min():.2f}")
+
 
