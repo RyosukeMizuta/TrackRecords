@@ -60,7 +60,8 @@ st.subheader("記録の統計")
 if not filtered_df.empty:
     records = pd.to_numeric(filtered_df["記録"], errors="coerce").dropna()
     st.write(f"平均記録: {records.mean():.2f}")
-    st.write(f"最高記録: {records.max():.2f}")
+    st.write(f"最低記録: {records.max():.2f}")
 
-    st.write(f"最低記録: {records.min():.2f}")
+    st.write(f"最髙記録: {records.min():.2f}")
+
 
