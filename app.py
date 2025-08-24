@@ -21,7 +21,6 @@ st.sidebar.header("検索条件")
 name_options = [""] + sorted(df["氏名"].dropna().unique().tolist())
 grade_options = [""] + sorted(df["学年"].dropna().unique().tolist())
 gender_options = [""] + sorted(df["性別"].dropna().unique().tolist())
-kana_options = [""] + sorted(df["氏名のふりがな"].dropna().unique().tolist())
 date_options = [""] + sorted(df["日時"].dropna().unique().tolist())
 event_options = [""] + sorted(df["種目"].dropna().unique().tolist())
 venue_options = [""] + sorted(df["会場"].dropna().unique().tolist())
@@ -31,7 +30,6 @@ wind_options = [""] + sorted(df["風速"].dropna().unique().tolist())
 name = st.sidebar.selectbox("氏名", name_options)
 grade = st.sidebar.selectbox("学年", grade_options)
 gender = st.sidebar.selectbox("性別", gender_options)
-kana = st.sidebar.selectbox("氏名のふりがな", kana_options)
 date = st.sidebar.selectbox("日時", date_options)
 event = st.sidebar.selectbox("種目", event_options)
 venue = st.sidebar.selectbox("会場", venue_options)
@@ -45,8 +43,6 @@ if grade:
     filtered_df = filtered_df[filtered_df["学年"] == grade]
 if gender:
     filtered_df = filtered_df[filtered_df["性別"] == gender]
-if kana:
-    filtered_df = filtered_df[filtered_df["氏名のふりがな"] == kana]
 if date:
     filtered_df = filtered_df[filtered_df["日時"] == date]
 if event:
