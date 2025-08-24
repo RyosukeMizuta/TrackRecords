@@ -63,4 +63,3 @@ if not filtered_df.empty:
     st.write(f"平均記録: {records.mean():.2f}")
     st.write(f"最高記録: {records.max():.2f}")
     st.write(f"最低記録: {records.min():.2f}")
-
