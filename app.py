@@ -2,7 +2,7 @@
 import streamlit as st
 import pandas as pd
 
-st.title("中学校陸上記録データベース")
+st.title("HUTE陸上記録データベース")
 
 CSV_URL = "https://raw.githubusercontent.com/RyosukeMizuta/TrackRecords/main/TrackRecords.csv"
 
@@ -62,4 +62,5 @@ if not filtered_df.empty:
     records = pd.to_numeric(filtered_df["記録"], errors="coerce").dropna()
     st.write(f"平均記録: {records.mean():.2f}")
     st.write(f"最高記録: {records.max():.2f}")
+
     st.write(f"最低記録: {records.min():.2f}")
