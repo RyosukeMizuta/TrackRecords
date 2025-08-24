@@ -1,16 +1,20 @@
+
 import streamlit as st
 import pandas as pd
 
 st.title("中学校陸上記録データベース")
 
-# GitHub上のCSVファイルを読み込む
-CSV_URL = "https://raw.githubusercontent.com/RyosukeMizuta/TrackRecords/refs/heads/main/TrackRecords.csv"
+CSV_URL = "https://raw.githubusercontent.com/RyosukeMizuta/TrackRecords/main/TrackRecords.csv"
 
 @st.cache_data
 def load_data():
-    return pd.read_csv(CSV_URL)
+    return pd.read_csv(CSV_URL, encoding="shift-jis")
 
-df = load_data()
+try:
+    df = load_data()
+    st.success("CSVファイルの読み込みに成功しました！")
+except Exception as e:
+    st.error(f"CSVファイルの読み込みに失敗しました: {e}")
 
 st.sidebar.header("検索条件")
 
@@ -62,7 +66,4 @@ if not filtered_df.empty:
     records = pd.to_numeric(filtered_df["記録"], errors="coerce").dropna()
     st.write(f"平均記録: {records.mean():.2f}")
     st.write(f"最高記録: {records.max():.2f}")
-
     st.write(f"最低記録: {records.min():.2f}")
-
-
