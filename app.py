@@ -4,7 +4,7 @@ import pandas as pd
 
 st.title("HUTE陸上記録データベース")
 
-CSV_URL = "https://raw.githubusercontent.com/RyosukeMizuta/TrackRecords/main/★TrackRecords.csv"
+CSV_URL = "https://raw.githubusercontent.com/RyosukeMizuta/TrackRecords/main/TrackRecords.csv"
 
 def load_data():
     return pd.read_csv(CSV_URL, encoding="shift-jis")
@@ -63,6 +63,7 @@ if not filtered_df.empty:
     st.write(f"最低記録: {records.max():.2f}")
 
     st.write(f"最髙記録: {records.min():.2f}")
+
 
 
 
