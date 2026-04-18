@@ -2,7 +2,7 @@
 import streamlit as st
 import pandas as pd
 
-st.title("HUTE陸上記録データベース")
+st.title("HUTE-Jr 陸上記録データベース")
 
 CSV_URL = "https://raw.githubusercontent.com/RyosukeMizuta/TrackRecords/main/TrackRecords.csv"
 
