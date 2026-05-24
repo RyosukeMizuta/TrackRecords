@@ -2,7 +2,7 @@
 import streamlit as st
 import pandas as pd
 
-st.title("HUTE-Jr 陸上記録データベース")
+st.title("HUTE陸上記録データベース")
 
 CSV_URL = "https://raw.githubusercontent.com/RyosukeMizuta/TrackRecords/main/TrackRecords.csv"
 
@@ -61,10 +61,24 @@ if not filtered_df.empty:
     records = pd.to_numeric(filtered_df["記録"], errors="coerce").dropna()
     st.write(f"平均記録: {records.mean():.2f}")
     st.write(f"最低記録: {records.max():.2f}")
-
     st.write(f"最髙記録: {records.min():.2f}")
 
+st.subheader("種目別ベスト記録一覧")
 
+# 種目を選択
+selected_event = st.selectbox("種目を選択してください", sorted(df["種目"].dropna().unique()))
 
+# 選んだ種目だけ抽出
+event_df = df[df["種目"] == selected_event].copy()
 
+# 記録を数値に変換（重要！）
+event_df["記録"] = pd.to_numeric(event_df["記録"], errors="coerce")
 
+# 生徒ごとのベスト記録（最小値）を取得
+best_records = event_df.groupby("氏名")["記録"].min().reset_index()
+
+# 並び替え（速い順）
+best_records = best_records.sort_values("記録")
+
+# 表示
+st.dataframe(best_records)
