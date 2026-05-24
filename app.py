@@ -71,7 +71,7 @@ if not filtered_df.empty:
     st.write(f"最低記録: {records.max():.2f}")
     st.write(f"最髙記録: {records.min():.2f}")
 
-st.subheader("種目別ベスト記録一覧")
+st.subheader("種目別シーズンベスト記録一覧")
 
 selected_event = st.selectbox("種目を選択してください", sorted(df["種目"].dropna().unique()))
 
