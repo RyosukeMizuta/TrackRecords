@@ -15,6 +15,10 @@ try:
 except Exception as e:
     st.error(f"CSVファイルの読み込みに失敗しました: {e}")
 
+df["日時"] = pd.to_datetime(df["日時"], errors="coerce")
+
+df["シーズン"] = df["日時"].dt.year.astype(str)
+
 st.header("検索条件")
 
 name_options = [""] + sorted(df["氏名"].dropna().unique().tolist())
@@ -25,6 +29,7 @@ event_options = [""] + sorted(df["種目"].dropna().unique().tolist())
 venue_options = [""] + sorted(df["会場"].dropna().unique().tolist())
 meet_options = [""] + sorted(df["大会名"].dropna().unique().tolist())
 wind_options = [""] + sorted(df["風速"].dropna().unique().tolist())
+season_options = [""] + sorted(df["シーズン"].dropna().unique())
 
 name = st.selectbox("氏名", name_options)
 grade = st.selectbox("学年", grade_options)
@@ -34,6 +39,7 @@ event = st.selectbox("種目", event_options)
 venue = st.selectbox("会場", venue_options)
 meet = st.selectbox("大会名", meet_options)
 wind = st.selectbox("風速", wind_options)
+season = st.selectbox("シーズン", season_options)
 
 filtered_df = df.copy()
 if name:
@@ -52,6 +58,8 @@ if meet:
     filtered_df = filtered_df[filtered_df["大会名"] == meet]
 if wind:
     filtered_df = filtered_df[filtered_df["風速"] == wind]
+if season:
+    filtered_df = filtered_df[filtered_df["シーズン"] == season]
 
 st.subheader("検索結果")
 st.dataframe(filtered_df)
@@ -65,20 +73,14 @@ if not filtered_df.empty:
 
 st.subheader("種目別ベスト記録一覧")
 
-# 種目を選択
 selected_event = st.selectbox("種目を選択してください", sorted(df["種目"].dropna().unique()))
 
-# 選んだ種目だけ抽出
-event_df = df[df["種目"] == selected_event].copy()
+event_df = filtered_df[filtered_df["種目"] == selected_event].copy()
 
-# 記録を数値に変換（重要！）
 event_df["記録"] = pd.to_numeric(event_df["記録"], errors="coerce")
 
-# 生徒ごとのベスト記録（最小値）を取得
 best_records = event_df.groupby("氏名")["記録"].min().reset_index()
 
-# 並び替え（速い順）
 best_records = best_records.sort_values("記録")
 
-# 表示
 st.dataframe(best_records)
